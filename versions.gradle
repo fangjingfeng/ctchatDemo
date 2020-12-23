@@ -1,0 +1,61 @@
+
+def configs = [:]
+configs.application_id = 'com.example.demo'
+configs.multi_dex_enabled = true
+configs.min_sdk = 19
+configs.target_sdk = 30
+configs.compile_sdk = 30
+configs.build_tools = '30.0.3'
+ext.configs = configs
+
+
+def versions = [:]
+versions.plugins_android_gradle = '4.1.1'
+versions.support = '1.2.0'
+versions.junit = '4.+'
+versions.android_junit = '1.1.2'
+versions.espresso_core = '3.3.0'
+versions.constraintlayout = '2.0.4'
+versions.jscoco = '0.8.5'
+ext.versions = versions
+
+
+ext.deps = [:]
+def plugins = [:]
+plugins.android = "com.android.tools.build:gradle:${versions.plugins_android_gradle}"
+plugins.jacoco = "org.jacoco:org.jacoco.core:${versions.jscoco}"
+deps.plugins = plugins
+
+
+def support = [:]
+support.junit = "junit:junit:${versions.junit}"
+support.android_junit = "androidx.test.ext:junit:${versions.android_junit}"
+support.espresso_core = "androidx.test.espresso:espresso-core:${versions.espresso_core}"
+support.appcompat = "androidx.appcompat:appcompat:${versions.support}"
+support.material = "com.google.android.material:material:${versions.support}"
+support.constraintlayout = "androidx.constraintlayout:constraintlayout:${versions.constraintlayout}"
+deps.support = support
+
+
+ext.deps = deps
+
+ext.build_versions = [:]
+build_versions.compile_sdk = configs.compile_sdk
+build_versions.build_tools = configs.build_tools
+build_versions.application_id = configs.application_id
+build_versions.min_sdk = configs.min_sdk
+build_versions.target_sdk = configs.target_sdk
+build_versions.encoding = 'UTF-8'
+build_versions.source_compatibility = JavaVersion.VERSION_1_8
+build_versions.target_compatibility = JavaVersion.VERSION_1_8
+ext.build_versions = build_versions
+
+
+def addRepos(RepositoryHandler handler) {
+    handler.maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    handler.maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
+    handler.maven { url 'https://jitpack.io' }
+    handler.jcenter()
+    handler.google()
+}
+ext.addRepos =this.&addRepos

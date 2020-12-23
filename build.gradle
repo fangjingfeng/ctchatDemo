@@ -1,0 +1,26 @@
+buildscript {
+    //添加第三方依赖声明文件
+    apply from: 'versions.gradle'
+    //添加仓库
+    addRepos(repositories)
+
+    dependencies {
+        classpath deps.plugins.android
+        //https://github.com/jacoco/jacoco
+        classpath deps.plugins.jacoco
+    }
+}
+
+allprojects {
+    //添加仓库
+    addRepos(repositories)
+}
+
+configure(allprojects - rootProject - project(':build-src') - project(':app')) {
+    apply from: "${rootDir}/gradle/include/jacoco.gradle"
+}
+
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,6 @@
+include ':app'
+rootProject.name = "FristDemo"
+
+// Exposes Gradle buildSrc for IDE support
+include 'buildSrc'
+rootProject.children.find { it.name == 'buildSrc' }.name = 'build-src'
